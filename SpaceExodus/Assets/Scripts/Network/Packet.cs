@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Numerics;
-// using UnityEngine;
+using UnityEngine;
 
-public enum ServerPackets 
+public enum ServerPackets
 {
     SP_WELCOME = 0,
+    UDP_TEST,
+    SP_SPAWNPLAYER,
     SP_PLAYER_POS,
     SP_PLAYER_ROT,
     SP_BULLET_POS
@@ -14,7 +15,9 @@ public enum ServerPackets
 
 public enum ClientPackets
 {
-    CP_WELCOME_RECEIVED = 0
+    CP_WELCOME_RECEIVED = 0,
+    UDP_RECEIVED,
+    CP_PLAYERMOVEMENT
 };
 
 public class CustomPacket : IDisposable
@@ -86,9 +89,9 @@ public class CustomPacket : IDisposable
 
     public void Write(Vector3 value)
     {
-        Write(value.X);
-        Write(value.Y);
-        Write(value.Z);
+        Write(value.x);
+        Write(value.y);
+        Write(value.z);
     }
 
     // Insert length at the begining of the buffer.
@@ -97,6 +100,10 @@ public class CustomPacket : IDisposable
         buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count));
     }
 
+    public void InsertInt(int value)
+    {
+        buffer.InsertRange(0, BitConverter.GetBytes(value));
+    }
 
     public byte ReadByte(bool moveReadPos = true)
     {
