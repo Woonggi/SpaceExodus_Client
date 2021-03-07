@@ -21,12 +21,28 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
+    private void FixedUpdate()
+    {
+        SendInputToServer();
+    }
+    private void SendInputToServer()
+    {
+        bool[] inputs = new bool[]
+        {
+            Input.GetKey(KeyCode.W),
+            Input.GetKey(KeyCode.S),
+            Input.GetKey(KeyCode.A),
+            Input.GetKey(KeyCode.D)
+        };
+        ClientSend.PlayerMovement(inputs);
+    }
+
     void Update()
     {
-        Move();
-        Shoot();
-        rigidbody2d.rotation = angle;
-        rigidbody2d.velocity = vel * acceleration * Time.deltaTime;
+        //Move();
+        //Shoot();
+        //rigidbody2d.rotation = angle;
+        //rigidbody2d.velocity = vel * acceleration * Time.deltaTime;
     }
 
     private void Move()

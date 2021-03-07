@@ -26,11 +26,16 @@ public class ClientSend : MonoBehaviour
         }
     }
 
-    public static void UDPTestReceived()
+    public static void PlayerMovement(bool[] inputs)
     {
-        using (CustomPacket packet = new CustomPacket((int)ClientPackets.UDP_RECEIVED))
+        using (CustomPacket packet = new CustomPacket((int)ClientPackets.CP_PLAYERMOVEMENT))
         {
-            packet.Write("Received a UDP Packet");
+            packet.Write(inputs.Length);
+            foreach (bool input in inputs)
+            {
+                packet.Write(input);
+            }
+            packet.Write(GameManager.players[Client.instance.myId].GetComponent<Rigidbody2D>().rotation);
             SendUDPData(packet);
         }
     }

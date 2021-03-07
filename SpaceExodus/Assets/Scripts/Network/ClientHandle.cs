@@ -19,19 +19,26 @@ public class ClientHandle : MonoBehaviour
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
 
-    public static void UDPTest(CustomPacket packet)
-    {
-        string msg = packet.ReadString();
-        Debug.Log($"Received packet via UDP. Contains message: {msg}");
-        ClientSend.UDPTestReceived();
-    }
-
     public static void SpawnPlayer(CustomPacket packet)
     {
         int id = packet.ReadInt();
         string username = packet.ReadString();
         Vector3 position = packet.ReadVector();
-        Vector3 rotation = packet.ReadVector();
+        float rotation = packet.ReadFloat();
         GameManager.instance.SpawnPlayer(id, username, position, rotation);
     }
+
+    public static void PlayerPosition(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        Vector3 position = packet.ReadVector();
+        GameManager.players[id].transform.position = position;
+    }
+    public static void PlayerRotation(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        float rotation = packet.ReadFloat();
+        GameManager.players[id].GetComponent<Rigidbody2D>().rotation = rotation;
+    }
+    
 }

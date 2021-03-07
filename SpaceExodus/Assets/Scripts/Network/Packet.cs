@@ -6,7 +6,6 @@ using UnityEngine;
 public enum ServerPackets
 {
     SP_WELCOME = 0,
-    UDP_TEST,
     SP_SPAWNPLAYER,
     SP_PLAYER_POS,
     SP_PLAYER_ROT,
@@ -16,7 +15,6 @@ public enum ServerPackets
 public enum ClientPackets
 {
     CP_WELCOME_RECEIVED = 0,
-    UDP_RECEIVED,
     CP_PLAYERMOVEMENT
 };
 
@@ -161,7 +159,7 @@ public class CustomPacket : IDisposable
             float value = BitConverter.ToSingle(readableBuffer, readPos);
             if (moveReadPos == true)
             {
-                readPos += sizeof(float);
+                readPos += 4;
             }
             return value;
         }
@@ -187,6 +185,24 @@ public class CustomPacket : IDisposable
         catch
         {
             throw new Exception("Could not read value of 'string'");
+        }
+    }
+    public bool ReadBool(bool _moveReadPos = true)
+    {
+        if (buffer.Count > readPos)
+        {
+            // If there are unread bytes
+            bool _value = BitConverter.ToBoolean(readableBuffer, readPos); // Convert the bytes to a bool
+            if (_moveReadPos)
+            {
+                // If _moveReadPos is true
+                readPos += 1; // Increase readPos by 1
+            }
+            return _value; // Return the bool
+        }
+        else
+        {
+            throw new Exception("Could not read value of type 'bool'!");
         }
     }
 

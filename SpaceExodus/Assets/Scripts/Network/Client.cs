@@ -121,7 +121,6 @@ public class Client : MonoBehaviour
             {
                 // Read length.
                 packetLength = receivedData.ReadInt();
-                Debug.Log(packetLength);
                 if (packetLength <= 0)
                 {
                     return true; // Reset the data. We don't have to read.
@@ -137,7 +136,6 @@ public class Client : MonoBehaviour
                     using (CustomPacket packet = new CustomPacket(packetBytes))
                     {
                         int packetId = packet.ReadInt();
-                        Debug.Log(packetId);
                         packetHandlers[packetId](packet);
                     }
                 });
@@ -242,8 +240,9 @@ public class Client : MonoBehaviour
         packetHandlers = new Dictionary<int, PacketHandler>()
         {
             { (int)ServerPackets.SP_WELCOME, ClientHandle.Welcome },
-            { (int)ServerPackets.UDP_TEST, ClientHandle.UDPTest}
-            //{ (int)ServerPackets.SP_SPAWNPLAYER, ClientHandle.SpawnPlayer}
+            { (int)ServerPackets.SP_SPAWNPLAYER, ClientHandle.SpawnPlayer},
+            { (int)ServerPackets.SP_PLAYER_POS, ClientHandle.PlayerPosition},
+            { (int)ServerPackets.SP_PLAYER_ROT, ClientHandle.PlayerRotation},
         };
         Debug.Log("Initialized packets.");
     }
