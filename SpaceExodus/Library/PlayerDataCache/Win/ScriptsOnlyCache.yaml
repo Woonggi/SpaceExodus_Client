@@ -52,35 +52,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11266}
+      Script: {instanceID: 11268}
     - Class: 114
-      Script: {instanceID: 11294}
+      Script: {instanceID: 11296}
     - Class: 114
-      Script: {instanceID: 11556}
+      Script: {instanceID: 11558}
     - Class: 114
-      Script: {instanceID: 11568}
+      Script: {instanceID: 11570}
     - Class: 114
-      Script: {instanceID: 11612}
+      Script: {instanceID: 11614}
     - Class: 114
-      Script: {instanceID: 12100}
+      Script: {instanceID: 12102}
     - Class: 114
-      Script: {instanceID: 12282}
+      Script: {instanceID: 12284}
     - Class: 114
-      Script: {instanceID: 12474}
+      Script: {instanceID: 12476}
     - Class: 114
-      Script: {instanceID: 12978}
+      Script: {instanceID: 12902}
     - Class: 114
-      Script: {instanceID: 12990}
+      Script: {instanceID: 12982}
     - Class: 114
-      Script: {instanceID: 13280}
+      Script: {instanceID: 12994}
     - Class: 114
-      Script: {instanceID: 13754}
+      Script: {instanceID: 13284}
     - Class: 114
-      Script: {instanceID: 14368}
+      Script: {instanceID: 13746}
     - Class: 114
-      Script: {instanceID: 14826}
+      Script: {instanceID: 13760}
     - Class: 114
-      Script: {instanceID: 14852}
+      Script: {instanceID: 14374}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -402,6 +402,12 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
+      Hash: 19ce4d990b36c942bc272650aa89dc85
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerManager
+  - hash:
+      serializedVersion: 2
       Hash: 4fd8bf02e3089425d3502e26c44ba31a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -502,6 +508,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: AudioTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 86a4c4a60253e8c173479e8f7fa608c6
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameManager
   - hash:
       serializedVersion: 2
       Hash: ae83e830e7a90c0aff918c4c2e520825
@@ -628,18 +640,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 86a4c4a60253e8c173479e8f7fa608c6
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GameManager
-  - hash:
-      serializedVersion: 2
-      Hash: 19ce4d990b36c942bc272650aa89dc85
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PlayerManager
   platform: 5
   scenePathNames:
   - Assets/Scenes/SampleScene.unity

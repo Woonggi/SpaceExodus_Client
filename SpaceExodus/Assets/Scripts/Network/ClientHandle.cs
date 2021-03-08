@@ -38,6 +38,7 @@ public class ClientHandle : MonoBehaviour
     {
         int id = packet.ReadInt();
         float rotation = packet.ReadFloat();
+        Debug.Log(rotation);
         GameManager.players[id].GetComponent<Rigidbody2D>().rotation = rotation;
     }
     

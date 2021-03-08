@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer(int _id, string _username, Vector3 position, float rotation)
     {
-        Debug.Log("Hi, Im here");
         GameObject player;
         if (_id == Client.instance.myId)
         {

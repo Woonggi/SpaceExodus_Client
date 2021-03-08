@@ -39,30 +39,30 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Move();
+        Move();
         //Shoot();
-        //rigidbody2d.rotation = angle;
+        rigidbody2d.rotation = angle;
         //rigidbody2d.velocity = vel * acceleration * Time.deltaTime;
     }
 
     private void Move()
     {
-        heading = Mathf.Deg2Rad * (angle + 90.0f); 
-        if (Input.GetKey(KeyCode.W))
-        {
-            // accelerate
-            vel.x += Mathf.Cos(heading);
-            vel.y += Mathf.Sin(heading);
-        }
+        //heading = Mathf.Deg2Rad * (angle + 90.0f); 
+        //if (Input.GetKey(KeyCode.W))
+        //{
+        //    // accelerate
+        //    vel.x += Mathf.Cos(heading);
+        //    vel.y += Mathf.Sin(heading);
+        //}
         if (Input.GetKey(KeyCode.A))
         {
             // rotate player
-            angle += rotSpeed * Time.deltaTime;
+            angle += rotSpeed * 0.03333f;
         }
         if (Input.GetKey(KeyCode.D))
         {
             // rotate player
-            angle -= rotSpeed * Time.deltaTime;
+            angle -= rotSpeed * 0.03333f;
         }
     }
 

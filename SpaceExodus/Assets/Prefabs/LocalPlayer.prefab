@@ -119,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 1
   maxSpeed: 10
-  rotSpeed: 300
+  rotSpeed: 5
   bulletSpeed: 30
   projectile: {fileID: 2136183680260649422, guid: 6e8aa860c605daa48a2f2144007f3434,
     type: 3}
