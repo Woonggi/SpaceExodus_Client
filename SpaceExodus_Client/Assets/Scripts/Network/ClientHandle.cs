@@ -46,4 +46,13 @@ public class ClientHandle : MonoBehaviour
         Quaternion target = Quaternion.Euler(0, 0, (float)Mathf.RoundToInt(rotation));
         GameManager.players[id].transform.rotation = target; 
     }
+
+    public static void PlayerShooting(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        Vector3 position = GameManager.players[id].transform.position;
+        Quaternion rotation = GameManager.players[id].transform.rotation;
+        GameManager.instance.SpawnBullet(id, position, rotation);
+
+    }
 }

@@ -40,4 +40,13 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    public static void PlayerShooting()
+    {
+        using (CustomPacket packet = new CustomPacket((int)ClientPackets.CP_PLAYER_SHOOTING))
+        {
+            packet.Write(Client.instance.myId);
+            SendTCPData(packet);
+        }
+    }
+
 }

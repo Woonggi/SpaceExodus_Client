@@ -13,11 +13,18 @@ public class PlayerController : MonoBehaviour
     {
         bool[] inputs = new bool[]
         {
-            Input.GetKey(KeyCode.W),
-            Input.GetKey(KeyCode.S),
-            Input.GetKey(KeyCode.A),
-            Input.GetKey(KeyCode.D)
+            Input.GetKey(KeyCode.UpArrow),
+            Input.GetKey(KeyCode.DownArrow),
+            Input.GetKey(KeyCode.LeftArrow),
+            Input.GetKey(KeyCode.RightArrow)
         };
         ClientSend.PlayerMovement(inputs);
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ClientSend.PlayerShooting();
+        }
+    }
+    private void Shooting()
+    {
     }
 }

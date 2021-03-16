@@ -16,7 +16,8 @@ public class Client : MonoBehaviour
     public TCP tcp;
     public UDP udp;
 
-    private bool isConnected = false;
+    [HideInInspector]
+    public bool isConnected = false;
     private delegate void PacketHandler(CustomPacket packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
@@ -266,6 +267,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.SP_SPAWN_PLAYER, ClientHandle.SpawnPlayer },
             { (int)ServerPackets.SP_PLAYER_POSITION, ClientHandle.PlayerPosition},
             { (int)ServerPackets.SP_PLAYER_ROTATION, ClientHandle.PlayerRotation},
+            { (int)ServerPackets.SP_PLAYER_SHOOTING, ClientHandle.PlayerShooting}
         };
         Debug.Log("Initialized packets.");
     }

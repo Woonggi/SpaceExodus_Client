@@ -424,6 +424,9 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 2289411279289611369, guid: fdc8c02e09386504f9111cfbbb21ce81,
     type: 3}
+  projectilePrefab: {fileID: 2115431013862823339, guid: b34be8b72f5fdd54c965a307552e748d,
+    type: 3}
+  projectileSpeed: 10
 --- !u!4 &441542028
 Transform:
   m_ObjectHideFlags: 0
@@ -916,6 +919,7 @@ MonoBehaviour:
   ip: 127.0.0.1
   port: 26950
   myId: 0
+  isConnected: 0
 --- !u!4 &1330343185
 Transform:
   m_ObjectHideFlags: 0

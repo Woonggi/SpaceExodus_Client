@@ -8,13 +8,15 @@ public enum ServerPackets
     SP_WELCOME = 1,
     SP_SPAWN_PLAYER,
     SP_PLAYER_POSITION,
-    SP_PLAYER_ROTATION
+    SP_PLAYER_ROTATION,
+    SP_PLAYER_SHOOTING 
 }
 
 public enum ClientPackets
 {
     CP_WELCOME_RECEIVED = 1,
-    CP_PLAYER_MOVEMENT
+    CP_PLAYER_MOVEMENT,
+    CP_PLAYER_SHOOTING
 }
 
 public class CustomPacket : IDisposable
