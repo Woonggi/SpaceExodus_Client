@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class ClientSend : MonoBehaviour
     {
         packet.WriteLength();
         Client.instance.tcp.SendData(packet);
+        Debug.Log(DateTime.Now.ToString());
     }
 
     private static void SendUDPData (CustomPacket packet)

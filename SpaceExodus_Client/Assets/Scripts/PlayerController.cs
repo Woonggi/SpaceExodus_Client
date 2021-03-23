@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    bool shoot = false;
     private void FixedUpdate()
     {
         SendInputToServer();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            shoot = true;
+        }
     }
 
     private void SendInputToServer()
@@ -19,9 +28,11 @@ public class PlayerController : MonoBehaviour
             Input.GetKey(KeyCode.RightArrow)
         };
         ClientSend.PlayerMovement(inputs);
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (shoot == true) 
         {
+            Debug.Log("SHOOT");
             ClientSend.PlayerShooting();
+            shoot = false;
         }
     }
     private void Shooting()

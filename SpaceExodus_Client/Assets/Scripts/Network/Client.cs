@@ -8,7 +8,7 @@ using System;
 public class Client : MonoBehaviour
 {
     public static Client instance;
-    public static int dataBufferSize = 4096;
+    public static int dataBufferSize = 4096 * 1024;
 
     public string ip = "127.0.0.1";
     public int port = 26950;
