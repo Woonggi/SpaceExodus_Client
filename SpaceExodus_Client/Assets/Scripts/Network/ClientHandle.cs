@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class ClientHandle : MonoBehaviour
 {
+    private static int lastFramePos = -1;
+    private static int lastFrameRot = -1;
+    private static float lastRot = 0.0f;
     public static void Welcome(CustomPacket packet)
     {
         string msg = packet.ReadString();
@@ -32,19 +35,17 @@ public class ClientHandle : MonoBehaviour
     {
         int id = packet.ReadInt();
         Vector3 position = packet.ReadVector3();
-        GameManager.players[id].transform.position = position;
+        int currFrame = packet.ReadInt();
+        GameManager.players[id].transform.position = position; 
+        lastFramePos = Mathf.Max(lastFramePos, currFrame);
     }
     public static void PlayerRotation(CustomPacket packet)
     {
         int id = packet.ReadInt();
-        // TEST!
-        // Quaternion rotation = packet.ReadQuaternion();
         float rotation = packet.ReadFloat();
-        Debug.Log(rotation);
-        // BUG: Ship is shaking while rotating sometimes. Possible reason is the UDP packet order.
-        // For now, to minimize shaking, cut out the decimal parts as much as I can.
-        Quaternion target = Quaternion.Euler(0, 0, (float)Mathf.RoundToInt(rotation));
-        GameManager.players[id].transform.rotation = target; 
+        int currFrame = packet.ReadInt();
+        Vector3 target = new Vector3(0, 0, rotation);
+        GameManager.players[id].transform.Rotate(target);//+= target;
     }
 
     public static void PlayerShooting(CustomPacket packet)
@@ -53,6 +54,5 @@ public class ClientHandle : MonoBehaviour
         Vector3 position = GameManager.players[id].transform.position;
         Quaternion rotation = GameManager.players[id].transform.rotation;
         GameManager.instance.SpawnBullet(id, position, rotation);
-
     }
 }
