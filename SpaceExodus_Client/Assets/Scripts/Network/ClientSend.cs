@@ -36,7 +36,7 @@ public class ClientSend : MonoBehaviour
                 packet.Write(input);
             }
             // TEST!
-            packet.Write(GameManager.players[Client.instance.myId].transform.rotation.eulerAngles.z);
+            //packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
             SendUDPData(packet);
         }
     }
@@ -45,7 +45,8 @@ public class ClientSend : MonoBehaviour
     {
         using (CustomPacket packet = new CustomPacket((int)ClientPackets.CP_PLAYER_SHOOTING))
         {
-            packet.Write(Client.instance.myId);
+            packet.Write(GameManager.players[Client.instance.myId].weaponLevel);
+            packet.Write(GameManager.instance.projectileSpeed);
             SendTCPData(packet);
         }
     }

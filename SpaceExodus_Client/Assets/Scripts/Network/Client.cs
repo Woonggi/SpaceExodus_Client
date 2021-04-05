@@ -265,9 +265,12 @@ public class Client : MonoBehaviour
         {
             { (int)ServerPackets.SP_WELCOME, ClientHandle.Welcome },
             { (int)ServerPackets.SP_SPAWN_PLAYER, ClientHandle.SpawnPlayer },
-            { (int)ServerPackets.SP_PLAYER_POSITION, ClientHandle.PlayerPosition},
-            { (int)ServerPackets.SP_PLAYER_ROTATION, ClientHandle.PlayerRotation},
-            { (int)ServerPackets.SP_PLAYER_SHOOTING, ClientHandle.PlayerShooting}
+            { (int)ServerPackets.SP_PLAYER_POSITION, ClientHandle.PlayerPosition },
+            { (int)ServerPackets.SP_PLAYER_ROTATION, ClientHandle.PlayerRotation },
+            { (int)ServerPackets.SP_PLAYER_SHOOTING, ClientHandle.PlayerShooting },
+            { (int)ServerPackets.SP_PLAYER_DISCONNECTED, ClientHandle.PlayerDisconnected },
+            { (int)ServerPackets.SP_PLAYER_HIT, ClientHandle.PlayerHit },
+            { (int)ServerPackets.SP_PLAYER_DESTROY, ClientHandle.PlayerDestroy }
         };
         Debug.Log("Initialized packets.");
     }

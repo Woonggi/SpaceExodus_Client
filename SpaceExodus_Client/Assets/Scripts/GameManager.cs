@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
+    public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation, int maxHealth)
     {
         GameObject player;
         if (id == Client.instance.myId)
@@ -36,14 +36,16 @@ public class GameManager : MonoBehaviour
         }
         player.GetComponent<PlayerManager>().id = id;
         player.GetComponent<PlayerManager>().username = username;
+        player.GetComponent<PlayerManager>().health = maxHealth;
         players.Add(id, player.GetComponent<PlayerManager>());
     }
 
     public void SpawnBullet(int id, Vector3 position, Quaternion rotation)
     {
         GameObject projectile = Instantiate(projectilePrefab, position, rotation);
+        projectile.GetComponent<Bullet>().bulletId = id;
         float heading = rotation.eulerAngles.z + 90.0f;
         Vector3 direction = new Vector3(Mathf.Cos(heading * Mathf.Deg2Rad), Mathf.Sin(heading * Mathf.Deg2Rad), 0.0f);
-        projectile.GetComponent<Rigidbody>().velocity = direction * projectileSpeed;
+        projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
     }
 }

@@ -7,8 +7,6 @@ using UnityEngine;
 public class ClientHandle : MonoBehaviour
 {
     private static int lastFramePos = -1;
-    private static int lastFrameRot = -1;
-    private static float lastRot = 0.0f;
     public static void Welcome(CustomPacket packet)
     {
         string msg = packet.ReadString();
@@ -27,8 +25,9 @@ public class ClientHandle : MonoBehaviour
         string username = packet.ReadString();
         Vector3 position = packet.ReadVector3();
         Quaternion rotation = packet.ReadQuaternion();
+        int maxHealth = packet.ReadInt();
 
-        GameManager.instance.SpawnPlayer(id, username, position, rotation);
+        GameManager.instance.SpawnPlayer(id, username, position, rotation, maxHealth);
     }
 
     public static void PlayerPosition(CustomPacket packet)
@@ -42,10 +41,9 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerRotation(CustomPacket packet)
     {
         int id = packet.ReadInt();
-        float rotation = packet.ReadFloat();
+        Quaternion rotation = packet.ReadQuaternion();
         int currFrame = packet.ReadInt();
-        Vector3 target = new Vector3(0, 0, rotation);
-        GameManager.players[id].transform.Rotate(target);//+= target;
+        GameManager.players[id].transform.rotation = rotation;
     }
 
     public static void PlayerShooting(CustomPacket packet)
@@ -54,5 +52,29 @@ public class ClientHandle : MonoBehaviour
         Vector3 position = GameManager.players[id].transform.position;
         Quaternion rotation = GameManager.players[id].transform.rotation;
         GameManager.instance.SpawnBullet(id, position, rotation);
+    }
+
+    public static void PlayerDisconnected(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        Destroy(GameManager.players[id].gameObject);
+        GameManager.players.Remove(id);  
+    }
+
+    public static void PlayerHit(CustomPacket packet)
+    {
+        // id that shoot
+        int id = packet.ReadInt();
+        int health = packet.ReadInt();
+        GameManager.players[id].GetComponent<PlayerManager>().health = health;
+        Debug.Log(GameManager.players[id].GetComponent<PlayerManager>().health);
+    }
+
+    public static void PlayerDestroy(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        // TODO: need to be temp destroy in some way.
+        Destroy(GameManager.players[id].gameObject);
+
     }
 }

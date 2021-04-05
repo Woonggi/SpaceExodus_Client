@@ -9,7 +9,10 @@ public enum ServerPackets
     SP_SPAWN_PLAYER,
     SP_PLAYER_POSITION,
     SP_PLAYER_ROTATION,
-    SP_PLAYER_SHOOTING 
+    SP_PLAYER_SHOOTING,
+    SP_PLAYER_DISCONNECTED,
+    SP_PLAYER_HIT,
+    SP_PLAYER_DESTROY
 }
 
 public enum ClientPackets

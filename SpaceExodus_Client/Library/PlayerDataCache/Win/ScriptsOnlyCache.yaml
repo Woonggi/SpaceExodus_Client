@@ -1,6 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
+    - Bullet
     - Client
     - DestroyTimer
     - GameManager
@@ -39,7 +40,9 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
-    - Class: 54
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 61
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
@@ -81,6 +84,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13062}
     - Class: 114
       Script: {instanceID: 13072}
+    - Class: 114
+      Script: {instanceID: 14712}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -342,7 +347,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 19ce4d990b36c942bc272650aa89dc85
+      Hash: 2c3ea085461669148a1774662162bf0a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -598,7 +603,13 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 1d1eb6984b6a5a0172dd3420f3c58f33
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Bullet
   platform: 5
   scenePathNames:
   - Assets/Scenes/Main.unity
-  playerPath: C:/Users/dmsdn/Desktop/M2Build/Client/SpaceExodus_Client.exe
+  playerPath: C:/Users/dmsdn/Desktop/git/side/side_client/SpaceExodus_Client/Build/SpaceExodus_Client.exe
