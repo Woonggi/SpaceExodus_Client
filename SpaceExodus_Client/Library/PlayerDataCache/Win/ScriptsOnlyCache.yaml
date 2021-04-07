@@ -81,11 +81,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12814}
     - Class: 114
-      Script: {instanceID: 13062}
+      Script: {instanceID: 12852}
     - Class: 114
-      Script: {instanceID: 13072}
+      Script: {instanceID: 13064}
     - Class: 114
-      Script: {instanceID: 14712}
+      Script: {instanceID: 13074}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -485,6 +485,12 @@ ScriptsOnlyBuild:
     className: MarkerTrack
   - hash:
       serializedVersion: 2
+      Hash: 1d1eb6984b6a5a0172dd3420f3c58f33
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Bullet
+  - hash:
+      serializedVersion: 2
       Hash: d791aa6007fa3640be1164ea75bb087d
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -603,12 +609,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 1d1eb6984b6a5a0172dd3420f3c58f33
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Bullet
   platform: 5
   scenePathNames:
   - Assets/Scenes/Main.unity

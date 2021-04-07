@@ -48,4 +48,8 @@ public class GameManager : MonoBehaviour
         Vector3 direction = new Vector3(Mathf.Cos(heading * Mathf.Deg2Rad), Mathf.Sin(heading * Mathf.Deg2Rad), 0.0f);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
     }
+
+    public void DestroyPlayer(int id)
+    {
+    }
 }

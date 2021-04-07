@@ -73,8 +73,14 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDestroy(CustomPacket packet)
     {
         int id = packet.ReadInt();
+        int killerId = packet.ReadInt();
+        Debug.Log($"player {killerId} killed {id}");
+
         // TODO: need to be temp destroy in some way.
         Destroy(GameManager.players[id].gameObject);
-
+    }
+    public static void PlayerRespawn(CustomPacket packet)
+    {
+        int 
     }
 }
