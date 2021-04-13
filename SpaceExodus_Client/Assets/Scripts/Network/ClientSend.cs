@@ -48,5 +48,12 @@ public class ClientSend : MonoBehaviour
             SendTCPData(packet);
         }
     }
-
+    public static void GameOver(int winner)
+    {
+        using (CustomPacket packet = new CustomPacket((int)ClientPackets.CP_GAME_OVER))
+        {
+            packet.Write(winner);
+            SendTCPData(packet);
+        }
+    }
 }

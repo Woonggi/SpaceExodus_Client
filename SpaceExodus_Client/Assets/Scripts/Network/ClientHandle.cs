@@ -11,10 +11,12 @@ public class ClientHandle : MonoBehaviour
     {
         string msg = packet.ReadString();
         int myId = packet.ReadInt();
+        
 
         Debug.Log($"Message from server: {msg}");
         Client.instance.myId = myId;
 
+        GameManager.instance.goalKillScore = packet.ReadInt();
         ClientSend.WelcomeReceived();
         Client.instance.udp.Connect(((IPEndPoint)Client.instance.tcp.socket.Client.LocalEndPoint).Port);
     }
@@ -66,7 +68,7 @@ public class ClientHandle : MonoBehaviour
         // id that shoot
         int id = packet.ReadInt();
         int health = packet.ReadInt();
-        GameManager.players[id].GetComponent<PlayerManager>().health = health;
+        GameManager.players[id].health = health;
         Debug.Log(GameManager.players[id].GetComponent<PlayerManager>().health);
     }
 
@@ -75,12 +77,19 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         int killerId = packet.ReadInt();
         Debug.Log($"player {killerId} killed {id}");
-
-        // TODO: need to be temp destroy in some way.
-        Destroy(GameManager.players[id].gameObject);
+        GameManager.instance.DestroyPlayer(id, killerId);
     }
     public static void PlayerRespawn(CustomPacket packet)
     {
-        int 
+        int id = packet.ReadInt();
+        int health = packet.ReadInt();
+        Vector3 spawnPosition = packet.ReadVector3();
+        GameManager.instance.RespawnPlayer(id, health, spawnPosition);
+    }
+    public static void GameOver(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        Debug.Log($"player {id} has won the game!");
+        GameManager.instance.GameOver(id);
     }
 }

@@ -25,7 +25,9 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
     - UnityEngine.UI.InputField
+    - UnityEngine.UI.LayoutElement
     - UnityEngine.UI.Text
+    - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
     Assets/Scenes/Main.unity:
     - Class: 1
@@ -59,6 +61,8 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11544}
     - Class: 114
+      Script: {instanceID: 11566}
+    - Class: 114
       Script: {instanceID: 11726}
     - Class: 114
       Script: {instanceID: 11760}
@@ -70,6 +74,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12230}
     - Class: 114
       Script: {instanceID: 12278}
+    - Class: 114
+      Script: {instanceID: 12324}
     - Class: 114
       Script: {instanceID: 12420}
     - Class: 114
@@ -203,7 +209,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: e0885abdecd869dccb877d73dbf16d9b
+      Hash: b38135a1a89a43798a1a6d3ec08b3fd0
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -347,7 +353,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAnimator
   - hash:
       serializedVersion: 2
-      Hash: 2c3ea085461669148a1774662162bf0a
+      Hash: d9a6a763b4928cb1a74bd370e1bf8722
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerManager
@@ -449,7 +455,7 @@ ScriptsOnlyBuild:
     className: TextMeshProUGUI
   - hash:
       serializedVersion: 2
-      Hash: 05c26a69c1fde3f08133e03cc006af91
+      Hash: a1fbe3af2a3e2ade6cf83a4041a48159
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UIManager

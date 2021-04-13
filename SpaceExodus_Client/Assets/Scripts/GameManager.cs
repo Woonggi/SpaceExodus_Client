@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject projectilePrefab;
     public float projectileSpeed;
+    public bool isGameover = true;
+
+    public int maxHealth;
+    public int goalKillScore;
+    public float respawnTime; 
+
     private void Awake()
     {
         if (instance == null)
@@ -38,6 +44,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerManager>().username = username;
         player.GetComponent<PlayerManager>().health = maxHealth;
         players.Add(id, player.GetComponent<PlayerManager>());
+        UIManager.instance.UpdateKillscore(players);
     }
 
     public void SpawnBullet(int id, Vector3 position, Quaternion rotation)
@@ -49,7 +56,26 @@ public class GameManager : MonoBehaviour
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
     }
 
-    public void DestroyPlayer(int id)
+    public void DestroyPlayer(int killed, int killer)
     {
+        players[killed].Active(false);
+        players[killer].kills++;
+        if (players[killer].kills == goalKillScore)
+        {
+            GameOver(killer);
+        }
+        UIManager.instance.UpdateKillscore(players);
+        Debug.Log($"player {killer} killed player {killed}");
+    }
+    public void RespawnPlayer(int id, int health, Vector3 spawnPosition)
+    {
+        players[id].Active(true);
+        players[id].health = health;
+        players[id].transform.position = spawnPosition;
+    }
+    public void GameOver(int killer)
+    {
+        isGameover = true;        
+        UIManager.instance.TextGameOver();
     }
 }

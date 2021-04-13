@@ -270,7 +270,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.SP_PLAYER_SHOOTING, ClientHandle.PlayerShooting },
             { (int)ServerPackets.SP_PLAYER_DISCONNECTED, ClientHandle.PlayerDisconnected },
             { (int)ServerPackets.SP_PLAYER_HIT, ClientHandle.PlayerHit },
-            { (int)ServerPackets.SP_PLAYER_DESTROY, ClientHandle.PlayerDestroy }
+            { (int)ServerPackets.SP_PLAYER_DESTROY, ClientHandle.PlayerDestroy },
+            { (int)ServerPackets.SP_PLAYER_RESPAWN, ClientHandle.PlayerRespawn },
+            { (int)ServerPackets.SP_GAME_OVER, ClientHandle.GameOver}
         };
         Debug.Log("Initialized packets.");
     }
