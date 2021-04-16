@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     bool shoot = false;
+    public bool controlActive = true;
     private void FixedUpdate()
     {
-        if (GameManager.instance.isGameover == false)
+        if (GameManager.instance.isGameover == false || controlActive == true)
         {
             SendInputToServer();
         }
@@ -15,7 +16,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.instance.isGameover == false)
+        if (GameManager.instance.isGameover == false || controlActive == true)
         {
             Shooting();
         }
@@ -32,6 +33,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             ClientSend.GameOver(gameObject.GetComponent<PlayerManager>().id);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameManager.instance.DestroyPlayer(1, 1);
         }
     }
     private void SendInputToServer()

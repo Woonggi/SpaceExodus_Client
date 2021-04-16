@@ -10,7 +10,7 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096 * 1024;
 
-    public string ip = "127.0.0.1";
+    public string ip;
     public int port = 26950;
     public int myId = 0;
     public TCP tcp;
@@ -45,12 +45,12 @@ public class Client : MonoBehaviour
         Disconnect();
     }
 
-    public void ConnectToServer()
+    public void ConnectToServer(string hostname)
     {
         InitializeClientData();
 
         isConnected = true;
-        tcp.Connect(); 
+        tcp.Connect(hostname); 
     }
 
     public class TCP
@@ -61,13 +61,23 @@ public class Client : MonoBehaviour
         private CustomPacket receivedData;
         private byte[] receiveBuffer;
 
-        public void Connect()
+        public void Connect(string hostname)
         {
             socket = new TcpClient
             {
                 ReceiveBufferSize = dataBufferSize,
                 SendBufferSize = dataBufferSize
             };
+            IPAddress[] addrList = Dns.GetHostAddresses(hostname);
+            foreach (IPAddress addr in addrList)
+            {
+                if (addr.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    instance.ip = addr.ToString();
+                    break;
+                }
+            }
+            Debug.Log($"TCP = {instance.ip}");
             receiveBuffer = new byte[dataBufferSize];
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
         }
@@ -180,11 +190,11 @@ public class Client : MonoBehaviour
         public IPEndPoint endPoint;
         public UDP()
         {
-            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
         }
         
         public void Connect (int localPort)
         {
+            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
             socket = new UdpClient(localPort);
             socket.Connect(endPoint);
             socket.BeginReceive(ReceiveCallback, null);
@@ -272,7 +282,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.SP_PLAYER_HIT, ClientHandle.PlayerHit },
             { (int)ServerPackets.SP_PLAYER_DESTROY, ClientHandle.PlayerDestroy },
             { (int)ServerPackets.SP_PLAYER_RESPAWN, ClientHandle.PlayerRespawn },
-            { (int)ServerPackets.SP_GAME_OVER, ClientHandle.GameOver}
+            { (int)ServerPackets.SP_PLAYER_POWERUP, ClientHandle.PowerUp},
+            { (int)ServerPackets.SP_GAME_OVER, ClientHandle.GameOver }
         };
         Debug.Log("Initialized packets.");
     }
