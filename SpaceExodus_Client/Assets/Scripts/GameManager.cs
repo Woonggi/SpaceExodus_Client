@@ -8,9 +8,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
-    public GameObject[] projectilePrefab;
-    public GameObject powerUpsPrefab;
-    public GameObject explosion;
+    public GameObject projectilePrefab;
     public float projectileSpeed;
     public bool isGameover = true;
 
@@ -51,8 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnBullet(int id, Vector3 position, Quaternion rotation)
     {
-        int weaponLevel = players[id].weaponLevel;
-        GameObject projectile = Instantiate(projectilePrefab[weaponLevel - 1], position, rotation);
+        GameObject projectile = Instantiate(projectilePrefab, position, rotation);
         projectile.GetComponent<Bullet>().bulletId = id;
         float heading = rotation.eulerAngles.z + 90.0f;
         Vector3 direction = new Vector3(Mathf.Cos(heading * Mathf.Deg2Rad), Mathf.Sin(heading * Mathf.Deg2Rad), 0.0f);
@@ -67,8 +64,6 @@ public class GameManager : MonoBehaviour
         {
             GameOver(killer);
         }
-        SpawnPowerUps(players[killed]);
-        Instantiate(explosion, players[killed].transform.position, Quaternion.identity);
         UIManager.instance.UpdateKillscore(players);
         Debug.Log($"player {killer} killed player {killed}");
     }
@@ -83,13 +78,4 @@ public class GameManager : MonoBehaviour
         isGameover = true;        
         UIManager.instance.TextGameOver();
     }
-    public void PowerUp(int id, int weaponLevel)
-    {
-        players[id].weaponLevel = weaponLevel;
-    }
-    private void SpawnPowerUps(PlayerManager player)
-    {
-        Instantiate(powerUpsPrefab, player.transform.position, Quaternion.identity);
-    }
-
 }

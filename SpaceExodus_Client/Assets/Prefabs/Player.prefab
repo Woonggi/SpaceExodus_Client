@@ -49,7 +49,6 @@ MonoBehaviour:
   username: 
   weaponLevel: 1
   health: 0
-  kills: 0
 --- !u!212 &2582730461021950497
 SpriteRenderer:
   m_ObjectHideFlags: 0

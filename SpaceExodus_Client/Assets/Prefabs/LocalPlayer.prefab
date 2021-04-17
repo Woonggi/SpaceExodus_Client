@@ -50,7 +50,6 @@ MonoBehaviour:
   username: 
   weaponLevel: 1
   health: 0
-  kills: 0
 --- !u!114 &7012925307946466778
 MonoBehaviour:
   m_ObjectHideFlags: 0

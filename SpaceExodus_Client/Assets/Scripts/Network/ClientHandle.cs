@@ -92,10 +92,4 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"player {id} has won the game!");
         GameManager.instance.GameOver(id);
     }
-    public static void PowerUp(CustomPacket packet)
-    {
-        int id = packet.ReadInt();
-        int weaponLevel = packet.ReadInt();
-        GameManager.instance.PowerUp(id, weaponLevel);
-    }
 }
