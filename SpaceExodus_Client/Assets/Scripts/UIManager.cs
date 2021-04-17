@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
         usernameField.interactable = false;
         hostnameField.interactable = false;
         Client.instance.ConnectToServer(hostnameField.text);
+        Destroy(GameObject.Find("Selector"));
+        Destroy(GameObject.Find("Destroy"));
     }
     public void TextGameOver()
     {

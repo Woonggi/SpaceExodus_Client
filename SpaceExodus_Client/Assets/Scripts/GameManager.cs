@@ -6,11 +6,12 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, Asteroid> asteroids = new Dictionary<int, Asteroid>(); 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
     public GameObject[] projectilePrefab;
+    public GameObject[] asteroidPrefabs;
     public GameObject powerUpsPrefab;
-    public GameObject explosion;
     public float projectileSpeed;
     public bool isGameover = true;
 
@@ -68,7 +69,7 @@ public class GameManager : MonoBehaviour
             GameOver(killer);
         }
         SpawnPowerUps(players[killed]);
-        Instantiate(explosion, players[killed].transform.position, Quaternion.identity);
+        players[killed].GetComponent<ExplosionEffect>().SpawnParticle();
         UIManager.instance.UpdateKillscore(players);
         Debug.Log($"player {killer} killed player {killed}");
     }
@@ -90,6 +91,29 @@ public class GameManager : MonoBehaviour
     private void SpawnPowerUps(PlayerManager player)
     {
         Instantiate(powerUpsPrefab, player.transform.position, Quaternion.identity);
+    }
+    public void SpawnAsteroid(int id, int type, Vector3 position, Quaternion rotation, Vector3 scale)
+    {
+        Asteroid asteroid = Instantiate(asteroidPrefabs[type], position, rotation).GetComponent<Asteroid>();
+        asteroids.Add(id, asteroid);
+        Debug.Log($"Spawn : {id}");
+    }
+    public void AsteroidPosition(int id, int type, Vector3 position)
+    {
+        if (asteroids.ContainsKey(id) == false)
+        { 
+            Asteroid asteroid = Instantiate(asteroidPrefabs[type], position, Quaternion.identity).GetComponent<Asteroid>();
+            asteroids.Add(id, asteroid); 
+        }
+        asteroids[id].transform.position = position;
+    }
+
+    public void DestroyAsteroid(int id)
+    {
+        asteroids[id].gameObject.GetComponent<ExplosionEffect>().SpawnParticle();
+        Debug.Log($"Destroy: {id}");
+        Destroy(asteroids[id].gameObject);
+        //asteroids.Remove(id);    
     }
 
 }
