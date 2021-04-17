@@ -272,7 +272,15 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.SP_PLAYER_HIT, ClientHandle.PlayerHit },
             { (int)ServerPackets.SP_PLAYER_DESTROY, ClientHandle.PlayerDestroy },
             { (int)ServerPackets.SP_PLAYER_RESPAWN, ClientHandle.PlayerRespawn },
+<<<<<<< HEAD
             { (int)ServerPackets.SP_GAME_OVER, ClientHandle.GameOver}
+=======
+            { (int)ServerPackets.SP_PLAYER_POWERUP, ClientHandle.PowerUp },
+            { (int)ServerPackets.SP_ASTEROID_SPAWN, ClientHandle.SpawnAsteroid },
+            { (int)ServerPackets.SP_ASTEROID_MOVEMENT, ClientHandle.AsteroidPosition },
+            { (int)ServerPackets.SP_ASTEROID_DESTROY, ClientHandle.AsteroidDestroy },
+            { (int)ServerPackets.SP_GAME_OVER, ClientHandle.GameOver }
+>>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
         };
         Debug.Log("Initialized packets.");
     }

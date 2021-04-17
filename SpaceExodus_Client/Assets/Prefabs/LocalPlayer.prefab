@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7012925307946466778}
   - component: {fileID: -542092264175873167}
   - component: {fileID: -2615174574550227706}
+  - component: {fileID: -6078386611531994895}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Player
@@ -62,6 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd2531e35bc9ca5498753864eef9e44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlActive: 1
 --- !u!212 &-542092264175873167
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -138,3 +140,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!114 &-6078386611531994895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289411279289611369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332fd593944546648bca7f0617313384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 2115431013862823339, guid: b8814fc47d2cb24489d876bd2a16fc0a,
+    type: 3}
+  numParticle: 15

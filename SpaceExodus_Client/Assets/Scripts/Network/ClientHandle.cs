@@ -92,4 +92,36 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"player {id} has won the game!");
         GameManager.instance.GameOver(id);
     }
+<<<<<<< HEAD
+=======
+    public static void PowerUp(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        int weaponLevel = packet.ReadInt();
+        GameManager.instance.PowerUp(id, weaponLevel);
+    }
+
+    public static void SpawnAsteroid(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        int type = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
+        Quaternion rotation = packet.ReadQuaternion();
+        Vector3 scale = packet.ReadVector3();
+        GameManager.instance.SpawnAsteroid(id, type, position, rotation, scale); 
+    }
+    public static void AsteroidPosition(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        int type = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
+        GameManager.instance.AsteroidPosition(id, type, position);
+    }
+
+    public static void AsteroidDestroy(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        GameManager.instance.DestroyAsteroid(id);
+    }
+>>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
 }

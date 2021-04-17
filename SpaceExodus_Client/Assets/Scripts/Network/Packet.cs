@@ -14,6 +14,13 @@ public enum ServerPackets
     SP_PLAYER_HIT,
     SP_PLAYER_DESTROY,
     SP_PLAYER_RESPAWN,
+<<<<<<< HEAD
+=======
+    SP_PLAYER_POWERUP,
+    SP_ASTEROID_SPAWN,
+    SP_ASTEROID_MOVEMENT,
+    SP_ASTEROID_DESTROY,
+>>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
     SP_GAME_OVER
 }
 
