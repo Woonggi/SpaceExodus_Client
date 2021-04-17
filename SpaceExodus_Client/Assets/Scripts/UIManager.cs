@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public GameObject startMenu;
     public InputField usernameField;
+    public InputField hostnameField;
     public Text gameOver;
     public Text userBoard;
 
@@ -28,14 +29,10 @@ public class UIManager : MonoBehaviour
     {
         startMenu.SetActive(false);
         usernameField.interactable = false;
-<<<<<<< HEAD
-        Client.instance.ConnectToServer();
-=======
         hostnameField.interactable = false;
         Client.instance.ConnectToServer(hostnameField.text);
         Destroy(GameObject.Find("Selector"));
         Destroy(GameObject.Find("Destroy"));
->>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
     }
     public void TextGameOver()
     {

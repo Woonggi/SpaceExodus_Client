@@ -92,8 +92,6 @@ public class ClientHandle : MonoBehaviour
         Debug.Log($"player {id} has won the game!");
         GameManager.instance.GameOver(id);
     }
-<<<<<<< HEAD
-=======
     public static void PowerUp(CustomPacket packet)
     {
         int id = packet.ReadInt();
@@ -123,5 +121,4 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         GameManager.instance.DestroyAsteroid(id);
     }
->>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
 }

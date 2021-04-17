@@ -9,13 +9,9 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, Asteroid> asteroids = new Dictionary<int, Asteroid>(); 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
-<<<<<<< HEAD
-    public GameObject projectilePrefab;
-=======
     public GameObject[] projectilePrefab;
     public GameObject[] asteroidPrefabs;
     public GameObject powerUpsPrefab;
->>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
     public float projectileSpeed;
     public bool isGameover = true;
 
@@ -56,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     public void SpawnBullet(int id, Vector3 position, Quaternion rotation)
     {
-        GameObject projectile = Instantiate(projectilePrefab, position, rotation);
+        int weaponLevel = players[id].weaponLevel;
+        GameObject projectile = Instantiate(projectilePrefab[weaponLevel - 1], position, rotation);
         projectile.GetComponent<Bullet>().bulletId = id;
         float heading = rotation.eulerAngles.z + 90.0f;
         Vector3 direction = new Vector3(Mathf.Cos(heading * Mathf.Deg2Rad), Mathf.Sin(heading * Mathf.Deg2Rad), 0.0f);
@@ -71,11 +68,8 @@ public class GameManager : MonoBehaviour
         {
             GameOver(killer);
         }
-<<<<<<< HEAD
-=======
         SpawnPowerUps(players[killed]);
         players[killed].GetComponent<ExplosionEffect>().SpawnParticle();
->>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
         UIManager.instance.UpdateKillscore(players);
         Debug.Log($"player {killer} killed player {killed}");
     }
@@ -90,8 +84,6 @@ public class GameManager : MonoBehaviour
         isGameover = true;        
         UIManager.instance.TextGameOver();
     }
-<<<<<<< HEAD
-=======
     public void PowerUp(int id, int weaponLevel)
     {
         players[id].weaponLevel = weaponLevel;
@@ -124,5 +116,4 @@ public class GameManager : MonoBehaviour
         //asteroids.Remove(id);    
     }
 
->>>>>>> 723bc2d68e42c8ee7a999f53ce7f1f966c16d4e8
 }
