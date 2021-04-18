@@ -51,9 +51,25 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerShooting(CustomPacket packet)
     {
         int id = packet.ReadInt();
+        int index = packet.ReadInt();
         Vector3 position = GameManager.players[id].transform.position;
         Quaternion rotation = GameManager.players[id].transform.rotation;
-        GameManager.instance.SpawnBullet(id, position, rotation);
+        GameManager.instance.SpawnBullet(id, index, position, rotation);
+    }
+
+    public static void BulletPosition(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        int index = packet.ReadInt();
+        Vector3 position = packet.ReadVector3();
+        GameManager.instance.BulletPosition(id, index, position);
+    }
+
+    public static void BulletDestroy(CustomPacket packet)
+    {
+        int id = packet.ReadInt();
+        int index = packet.ReadInt();
+        GameManager.instance.BulletDestroy(id, index);
     }
 
     public static void PlayerDisconnected(CustomPacket packet)
@@ -91,6 +107,11 @@ public class ClientHandle : MonoBehaviour
         int id = packet.ReadInt();
         Debug.Log($"player {id} has won the game!");
         GameManager.instance.GameOver(id);
+    }
+    public static void SpawnPowerUp(CustomPacket packet)
+    {
+        Vector3 position = packet.ReadVector3();
+        GameManager.instance.SpawnPowerUp(position);
     }
     public static void PowerUp(CustomPacket packet)
     {

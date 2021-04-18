@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
         string content = "";
         foreach (KeyValuePair<int, PlayerManager> p in players)
         {
-            content += $"{p.Key}.{p.Value.username} : {p.Value.kills} Kills\n";
+            content += $"{p.Value.username} : {p.Value.kills} Kills\n";
         }
         userBoard.text = content;
     }

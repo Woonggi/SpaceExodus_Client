@@ -51,6 +51,9 @@ MonoBehaviour:
   weaponLevel: 1
   health: 0
   kills: 0
+  source: {fileID: 0}
+  shoot: {fileID: 8300000, guid: 196a301ac7b049d4bb4a5f8c980d0ba2, type: 3}
+  destroy: {fileID: 8300000, guid: b7a51ab240050d3408433f331dff6b01, type: 3}
 --- !u!212 &2582730461021950497
 SpriteRenderer:
   m_ObjectHideFlags: 0

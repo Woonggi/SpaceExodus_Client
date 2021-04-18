@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
-    public static Dictionary<int, Asteroid> asteroids = new Dictionary<int, Asteroid>(); 
+    public static Dictionary<int, Asteroid> asteroids = new Dictionary<int, Asteroid>();
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
     public GameObject[] projectilePrefab;
@@ -17,7 +18,10 @@ public class GameManager : MonoBehaviour
 
     public int maxHealth;
     public int goalKillScore;
-    public float respawnTime; 
+    public float respawnTime;
+
+    // Audio Clips.
+    private AudioManager audioManager;
 
     private void Awake()
     {
@@ -30,6 +34,10 @@ public class GameManager : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+    }
+    private void Start()
+    {
+        audioManager = GetComponent<AudioManager>();
     }
 
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation, int maxHealth)
@@ -50,28 +58,54 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateKillscore(players);
     }
 
-    public void SpawnBullet(int id, Vector3 position, Quaternion rotation)
+    public void SpawnBullet(int id, int index, Vector3 position, Quaternion rotation)
     {
         int weaponLevel = players[id].weaponLevel;
         GameObject projectile = Instantiate(projectilePrefab[weaponLevel - 1], position, rotation);
         projectile.GetComponent<Bullet>().bulletId = id;
-        float heading = rotation.eulerAngles.z + 90.0f;
-        Vector3 direction = new Vector3(Mathf.Cos(heading * Mathf.Deg2Rad), Mathf.Sin(heading * Mathf.Deg2Rad), 0.0f);
-        projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+        players[id].bullets.Add(index, projectile.GetComponent<Bullet>());
+        audioManager.Shoot();
+    }
+
+    public void BulletPosition(int id, int index, Vector3 position)
+    {
+        if (players[id].bullets.ContainsKey(index))
+        {
+            if (players[id].bullets[index] != null)
+            {
+                players[id].bullets[index].transform.position = position;
+            }
+        }
+    }
+
+    public void BulletDestroy(int id, int index)
+    {
+        if (players[id].bullets.ContainsKey(index))
+        {
+            if (players[id].bullets[index] != null)
+            {
+                audioManager.Hit();
+                Destroy(players[id].bullets[index].gameObject);
+                players[id].bullets.Remove(index);
+            }
+        }
     }
 
     public void DestroyPlayer(int killed, int killer)
     {
         players[killed].Active(false);
-        players[killer].kills++;
-        if (players[killer].kills == goalKillScore)
+        if (killer != 0)
         {
-            GameOver(killer);
+            players[killer].kills++;
+            if (players[killer].kills == goalKillScore)
+            {
+                GameOver(killer);
+            }
         }
-        SpawnPowerUps(players[killed]);
+        players[killed].weaponLevel = 1;
+        audioManager.DestroyPlayer();
         players[killed].GetComponent<ExplosionEffect>().SpawnParticle();
         UIManager.instance.UpdateKillscore(players);
-        Debug.Log($"player {killer} killed player {killed}");
     }
     public void RespawnPlayer(int id, int health, Vector3 spawnPosition)
     {
@@ -83,20 +117,27 @@ public class GameManager : MonoBehaviour
     {
         isGameover = true;        
         UIManager.instance.TextGameOver();
+        StartCoroutine("GoBackToMenu");
+    }
+    
+    public IEnumerator GoBackToMenu()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("Menu");
     }
     public void PowerUp(int id, int weaponLevel)
     {
+        audioManager.PowerUP();
         players[id].weaponLevel = weaponLevel;
     }
-    private void SpawnPowerUps(PlayerManager player)
-    {
-        Instantiate(powerUpsPrefab, player.transform.position, Quaternion.identity);
+    public void SpawnPowerUp(Vector3 position)
+    {  
+        Instantiate(powerUpsPrefab, position, Quaternion.identity);
     }
     public void SpawnAsteroid(int id, int type, Vector3 position, Quaternion rotation, Vector3 scale)
     {
         Asteroid asteroid = Instantiate(asteroidPrefabs[type], position, rotation).GetComponent<Asteroid>();
         asteroids.Add(id, asteroid);
-        Debug.Log($"Spawn : {id}");
     }
     public void AsteroidPosition(int id, int type, Vector3 position)
     {
@@ -105,15 +146,22 @@ public class GameManager : MonoBehaviour
             Asteroid asteroid = Instantiate(asteroidPrefabs[type], position, Quaternion.identity).GetComponent<Asteroid>();
             asteroids.Add(id, asteroid); 
         }
-        asteroids[id].transform.position = position;
+        if (asteroids[id] != null)
+        {
+            asteroids[id].transform.position = position;
+        }
     }
 
     public void DestroyAsteroid(int id)
     {
-        asteroids[id].gameObject.GetComponent<ExplosionEffect>().SpawnParticle();
-        Debug.Log($"Destroy: {id}");
-        Destroy(asteroids[id].gameObject);
-        //asteroids.Remove(id);    
+        if (asteroids.ContainsKey(id))
+        {
+            if (asteroids[id] != null)
+            {
+                audioManager.DestroyAsteroid();
+                asteroids[id].gameObject.GetComponent<ExplosionEffect>().SpawnParticle();
+                Destroy(asteroids[id].gameObject);
+            }
+        }
     }
-
 }

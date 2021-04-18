@@ -19,7 +19,12 @@ public class MenuAsteroid : MonoBehaviour
         GetComponent<ExplosionEffect>().SpawnParticle();
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Collider2D>().enabled = false;
+        if (sceneName == "Exit")
+        {
+            Application.Quit();
+        }
         StartCoroutine("SceneChange");
+        GetComponent<AudioSource>().Play();
     }
 
     private IEnumerator SceneChange()
