@@ -75,6 +75,7 @@ public class ClientHandle : MonoBehaviour
     public static void PlayerDisconnected(CustomPacket packet)
     {
         int id = packet.ReadInt();
+        UIManager.instance.DisconnectMessage(GameManager.players[id].username);
         Destroy(GameManager.players[id].gameObject);
         GameManager.players.Remove(id);  
     }

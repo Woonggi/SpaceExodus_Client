@@ -45,12 +45,19 @@ public class Client : MonoBehaviour
         Disconnect();
     }
 
-    public void ConnectToServer(string hostname)
+    public bool ConnectToServer(string hostname)
     {
-        InitializeClientData();
-
-        isConnected = true;
-        tcp.Connect(hostname); 
+        if (tcp.Connect(hostname) == true)
+        { 
+            InitializeClientData();
+            isConnected = true;
+            return true;
+        }
+        else
+        {
+            UIManager.instance.FailedConnectionMessage(hostname);
+        }
+        return false; 
     }
 
     public class TCP
@@ -61,25 +68,34 @@ public class Client : MonoBehaviour
         private CustomPacket receivedData;
         private byte[] receiveBuffer;
 
-        public void Connect(string hostname)
+        public bool Connect(string hostname)
         {
-            socket = new TcpClient
+            try
             {
-                ReceiveBufferSize = dataBufferSize,
-                SendBufferSize = dataBufferSize
-            };
-            IPAddress[] addrList = Dns.GetHostAddresses(hostname);
-            foreach (IPAddress addr in addrList)
-            {
-                if (addr.AddressFamily == AddressFamily.InterNetwork)
+                socket = new TcpClient
                 {
-                    instance.ip = addr.ToString();
-                    break;
+                    ReceiveBufferSize = dataBufferSize,
+                    SendBufferSize = dataBufferSize
+                };
+                IPAddress[] addrList = Dns.GetHostAddresses(hostname);
+                foreach (IPAddress addr in addrList)
+                {
+                    if (addr.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        instance.ip = addr.ToString();
+                        break;
+                    }
                 }
+                Debug.Log($"TCP = {instance.ip}");
+                receiveBuffer = new byte[dataBufferSize];
+                socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
             }
-            Debug.Log($"TCP = {instance.ip}");
-            receiveBuffer = new byte[dataBufferSize];
-            socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+            catch (Exception e)
+            {
+                Debug.Log(e.ToString());
+                return false;
+            }
+            return true;
         }
         private void ConnectCallback(IAsyncResult result)
         {

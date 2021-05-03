@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerManager>().username = username;
         player.GetComponent<PlayerManager>().health = maxHealth;
         players.Add(id, player.GetComponent<PlayerManager>());
+        UIManager.instance.JoinMessage(username);
         UIManager.instance.UpdateKillscore(players);
     }
 
@@ -116,7 +117,8 @@ public class GameManager : MonoBehaviour
     public void GameOver(int killer)
     {
         isGameover = true;        
-        UIManager.instance.TextGameOver();
+        UIManager.instance.TextGameOver(killer);
+        ClientSend.GameOver(killer);
         StartCoroutine("GoBackToMenu");
     }
     

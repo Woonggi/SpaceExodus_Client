@@ -5,7 +5,7 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    private AudioSource source;
+    private AudioSource[] sources;
     public AudioClip hit;
     public AudioClip shoot;
     public AudioClip destroyPlayer;
@@ -13,28 +13,28 @@ public class AudioManager : MonoBehaviour
     public AudioClip powerUp;
     void Start()
     {
-        source = GetComponent<AudioSource>();
+        sources = GetComponents<AudioSource>();
     }
 
     // Update is called once per frame
     public void Hit()
     {
-        source.PlayOneShot(hit);
+        sources[0].PlayOneShot(hit);
     }
     public void Shoot()
     {
-        source.PlayOneShot(shoot); 
+        sources[1].PlayOneShot(shoot); 
     }
     public void DestroyPlayer()
     {
-        source.PlayOneShot(destroyPlayer); 
+        sources[2].PlayOneShot(destroyPlayer); 
     }
     public void DestroyAsteroid()
-    { 
-        source.PlayOneShot(destroyAsteroid); 
+    {
+        sources[3].PlayOneShot(destroyAsteroid); 
     }
     public void PowerUP()
     {
-        source.PlayOneShot(powerUp);
+        sources[4].PlayOneShot(powerUp);
     }
 }
